@@ -24,7 +24,7 @@ public class WelcomeActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "New test started");
-                startActivity(new Intent(v.getContext(), TestActivity.class));
+                normalTest();
             }
         });
 
@@ -42,11 +42,29 @@ public class WelcomeActivity extends Activity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            startActivity(new Intent(this, SettingsActivity.class));
-            return true;
+        switch (item.getItemId()){
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                return true;
+            case R.id.benchmark_button:
+                benchmarkTest();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
+
+    }
+
+    private void normalTest(){
+        Intent intent = new Intent(this, TestActivity.class);
+        intent.putExtra("BENCHMARK", false);
+        startActivity(intent);
+    }
+
+    private void benchmarkTest(){
+        Intent intent = new Intent(this, TestActivity.class);
+        intent.putExtra("BENCHMARK", true);
+        startActivity(intent);
     }
 }

@@ -21,7 +21,7 @@ import java.util.Collection;
  */
 public class MathFragment extends Fragment {
     private static final String TAG = MathFragment.class.getSimpleName();
-    private final int NUMBER_MAX_SIZE = 20;
+    private final int NUMBER_MAX_SIZE = 10;
     private Random r;
     private TextView question;
     private Button answer1;
@@ -30,13 +30,15 @@ public class MathFragment extends Fragment {
     private Button answerButtons[];
     private long startTime;
     private long times[];
+    private boolean benchmark;
 
     private int answeredQuestions = 0;
 
-    public static MathFragment newInstance(int questions){
+    public static MathFragment newInstance(int questions, boolean benchmark){
         MathFragment f = new MathFragment();
         Bundle args = new Bundle();
         args.putInt("questions", questions);
+        args.putBoolean("benchmark", benchmark);
         f.setArguments(args);
         return f;
     }
@@ -47,6 +49,7 @@ public class MathFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_math, container, false);
         r = new Random();
         times = new long[getArguments().getInt("questions", 5)];
+        benchmark = getArguments().getBoolean("benchmark");
 
         question = (TextView) view.findViewById(R.id.math_question);
         answer1 = (Button) view.findViewById(R.id.answer1);
@@ -71,9 +74,11 @@ public class MathFragment extends Fragment {
                 times[answeredQuestions] = System.currentTimeMillis() - startTime;
                 answeredQuestions++;
                 if(answeredQuestions == times.length){
+
                     Intent intent = new Intent(new Intent(v.getContext(), ResultActivity.class));
                     intent.putExtra("TIMES", times);
                     startActivity(intent);
+                    getActivity().finish();
                 } else {
                     generateQuestion();
                 }
