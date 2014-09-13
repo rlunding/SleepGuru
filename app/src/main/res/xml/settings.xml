@@ -4,12 +4,26 @@
 
     <EditTextPreference
         android:key="username"
-        android:summary="@string/username_summary"
-        android:title="@string/username" />
+        android:title="@string/username"
+        android:summary="@string/username_summary"/>
 
     <EditTextPreference
-        android:inputType="textPassword"
-        android:title="@string/password"
         android:key="password"
-        android:summary="@string/password_summary"/>
+        android:title="@string/password"
+        android:summary="@string/password_summary"
+        android:inputType="textPassword"/>
+
+    <EditTextPreference
+        android:key="sleep_time"
+        android:title="@string/sleep_time"
+        android:summary="@string/sleep_time_summary"
+        android:inputType="number"
+        android:defaultValue="8"/>
+
+    <EditTextPreference
+        android:key="score"
+        android:title="@string/score"
+        android:summary="@string/score_summary"
+        android:inputType="number"
+        android:defaultValue="1500"/>
 </PreferenceScreen>

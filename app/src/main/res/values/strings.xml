@@ -11,10 +11,15 @@
     <string name="username">Username</string>
     <string name="password_summary">Enter your password here</string>
     <string name="password">Password</string>
+    <string name="sleep_time_summary">How long time do you sleep at night? (hours)</string>
+    <string name="sleep_time">Sleep time</string>
+    <string name="score_summary">Your benchmark score</string>
+    <string name="score">Score</string>
 
     <!-- Strings for test activity-->
     <string name="test_activity">Test</string>
 
     <!-- Strings for result activity-->
     <string name="result_activity">Result</string>
+
 </resources>
