@@ -12,4 +12,7 @@
     <string name="password_summary">Enter your password here</string>
     <string name="password">Password</string>
 
+    <!-- String for test activity-->
+    <string name="test_activity">Test</string>
+
 </resources>

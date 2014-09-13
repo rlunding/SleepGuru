@@ -17,8 +17,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.lunding.sleepguru.SettingsActivity"
+            android:name=".SettingsActivity"
             android:label="@string/settings_activity">
+        </activity>
+        <activity
+            android:name=".TestActivity"
+            android:label="@string/test_activity">
         </activity>
     </application>
 
