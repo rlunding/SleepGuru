@@ -26,14 +26,12 @@ public class BallFragment extends Fragment {
     private long times[];
     private int hits = 0;
     private boolean benchmark;
-    private long average;
 
-    public static BallFragment newInstance(int questions, boolean benchmark, long average){
+    public static BallFragment newInstance(int questions, boolean benchmark){
         BallFragment f = new BallFragment();
         Bundle args = new Bundle();
         args.putInt("questions", questions);
         args.putBoolean("benchmark", benchmark);
-        args.putLong("average", average);
         f.setArguments(args);
         return f;
     }
@@ -44,7 +42,6 @@ public class BallFragment extends Fragment {
         final ImageButton ball = (ImageButton) view.findViewById(R.id.moving_ball);
         times = new long[getArguments().getInt("questions", 5)];
         benchmark = getArguments().getBoolean("benchmark");
-        average = getArguments().getLong("average");
         startTime = System.currentTimeMillis();
 
         ball.setOnClickListener(new OnClickListener() {
@@ -54,7 +51,7 @@ public class BallFragment extends Fragment {
             public void onClick(View view) {
                 if(hits==times.length){
                     if (benchmark) {
-                        long avg = TestActivity.calculateAverage(times, average);
+                        long avg = TestActivity.calculateAverage(times);
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
                         SharedPreferences.Editor editpref = prefs.edit();
                         editpref.putString("score", String.valueOf(avg));
