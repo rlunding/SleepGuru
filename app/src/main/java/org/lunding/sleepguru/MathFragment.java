@@ -1,6 +1,7 @@
 package org.lunding.sleepguru;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ public class MathFragment extends Fragment {
     private Button answer2;
     private Button answer3;
     private long startTime;
+    private long times[] = new long[5];
 
     private int answeredQuestions = 0;
 
@@ -53,10 +55,14 @@ public class MathFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Answer: " + id + " time: " + (System.currentTimeMillis() - startTime) + " answered questions: " + answeredQuestions);
-                generateQuestion();
+                times[answeredQuestions] = System.currentTimeMillis() - startTime;
                 answeredQuestions++;
                 if(answeredQuestions == 5){
-                    getActivity().getFragmentManager().popBackStack();
+                    Intent intent = new Intent(new Intent(v.getContext(), ResultActivity.class));
+                    intent.putExtra("TIMES", times);
+                    startActivity(intent);
+                } else {
+                    generateQuestion();
                 }
             }
         };
