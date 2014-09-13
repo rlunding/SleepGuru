@@ -80,4 +80,5 @@ public class TestActivity extends Activity {
         avg /= times.length;
         return avg;
     }
+
 }
