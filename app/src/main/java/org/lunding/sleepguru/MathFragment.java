@@ -21,28 +21,41 @@ import java.util.Collection;
  */
 public class MathFragment extends Fragment {
     private static final String TAG = MathFragment.class.getSimpleName();
+    private final int NUMBER_MAX_SIZE = 20;
     private Random r;
     private TextView question;
     private Button answer1;
     private Button answer2;
     private Button answer3;
+    private Button answerButtons[];
     private long startTime;
-    private long times[] = new long[5];
+    private long times[];
 
     private int answeredQuestions = 0;
+
+    public static MathFragment newInstance(int questions){
+        MathFragment f = new MathFragment();
+        Bundle args = new Bundle();
+        args.putInt("questions", questions);
+        f.setArguments(args);
+        return f;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_math, container, false);
         r = new Random();
+        times = new long[getArguments().getInt("questions", 5)];
 
         question = (TextView) view.findViewById(R.id.math_question);
         answer1 = (Button) view.findViewById(R.id.answer1);
-        answer1.setOnClickListener(answerListener(1));
         answer2 = (Button) view.findViewById(R.id.answer2);
-        answer2.setOnClickListener(answerListener(2));
         answer3 = (Button) view.findViewById(R.id.answer3);
-        answer3.setOnClickListener(answerListener(3));
+        answerButtons = new Button[]{answer1, answer2, answer3};
+        for(int i = 0; i < answerButtons.length; i++){
+            answerButtons[i].setOnClickListener(answerListener(i));
+        }
 
         generateQuestion();
 
@@ -57,7 +70,7 @@ public class MathFragment extends Fragment {
                 Log.d(TAG, "Answer: " + id + " time: " + (System.currentTimeMillis() - startTime) + " answered questions: " + answeredQuestions);
                 times[answeredQuestions] = System.currentTimeMillis() - startTime;
                 answeredQuestions++;
-                if(answeredQuestions == 5){
+                if(answeredQuestions == times.length){
                     Intent intent = new Intent(new Intent(v.getContext(), ResultActivity.class));
                     intent.putExtra("TIMES", times);
                     startActivity(intent);
@@ -71,29 +84,30 @@ public class MathFragment extends Fragment {
     private void generateQuestion(){
         int[] numbers = new int[6];
         for(int i = 0; i < 6; i++){
-            numbers[i] = r.nextInt(20)+1;
+            numbers[i] = r.nextInt(NUMBER_MAX_SIZE)+1;
         }
-        if(r.nextInt(10) < 5){
+        if(r.nextBoolean()){
             question.setText(numbers[0] + " + " + numbers[1]);
             ArrayList<String> answers = new ArrayList<String>();
             answers.add(String.valueOf(numbers[0] + numbers[1]));
             answers.add(String.valueOf(numbers[2] + numbers[3]));
             answers.add(String.valueOf(numbers[4] + numbers[5]));
-            Collections.shuffle(answers);
-            answer1.setText(answers.get(0));
-            answer2.setText(answers.get(1));
-            answer3.setText(answers.get(2));
+            setAnswers(answers);
         } else {
             question.setText(String.valueOf(numbers[0] + numbers[1]));
             ArrayList<String> answers = new ArrayList<String>();
             answers.add(numbers[0] + " + " + numbers[1]);
             answers.add(numbers[2] + " + " + numbers[3]);
             answers.add(numbers[4] + " + " + numbers[5]);
-            Collections.shuffle(answers);
-            answer1.setText(answers.get(0));
-            answer2.setText(answers.get(1));
-            answer3.setText(answers.get(2));
+            setAnswers(answers);
         }
         startTime = System.currentTimeMillis();
+    }
+
+    private void setAnswers(ArrayList<String> values){
+        Collections.shuffle(values);
+        for(int i = 0; i < answerButtons.length; i++){
+            answerButtons[i].setText(values.get(i));
+        }
     }
 }

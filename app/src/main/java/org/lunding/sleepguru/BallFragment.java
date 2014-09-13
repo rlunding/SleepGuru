@@ -33,9 +33,7 @@ public class BallFragment extends Fragment {
             public void onClick(View view) {
                 //difference between the start and current time is entered into array
                 times[hits] = System.currentTimeMillis() - startTime;
-                System.out.println("time stored: " + times[hits]);
                 hits++;
-                System.out.println("hits: " + hits);
 
                 switch (view.getId()){
                     case (R.id.moving_ball):{
@@ -49,7 +47,6 @@ public class BallFragment extends Fragment {
                 }
                 //restart timer
                 startTime = System.currentTimeMillis();
-                System.out.println("start time 2:" + startTime);
             }
         });
         return view;
