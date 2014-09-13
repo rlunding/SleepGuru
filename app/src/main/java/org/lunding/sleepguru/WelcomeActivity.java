@@ -8,23 +8,50 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 
 public class WelcomeActivity extends Activity {
     private static final String TAG = WelcomeActivity.class.getSimpleName();
-    private Button startButton;
+    private SeekBar sb;
+    private TextView slide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
 
-        startButton = (Button) findViewById(R.id.startTestButton);
-        startButton.setOnClickListener(new View.OnClickListener() {
+        slide = (TextView) findViewById(R.id.slide_to_continue);
+
+        sb = (SeekBar) findViewById(R.id.seekbar);
+        sb.setProgress(0);
+
+        sb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onClick(View v) {
-                Log.d(TAG, "New test started");
-                normalTest();
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (seekBar.getProgress() > 95) {
+
+                } else {
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.ic_launcher));
+                }
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+                slide.setAlpha(0.2f);
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                if (seekBar.getProgress() >95) {
+                    Log.d(TAG, "New test started");
+                    normalTest();
+                }
+                else{
+                    slide.setAlpha(0.6f);
+                    seekBar.setProgress(0);
+                }
             }
         });
 
