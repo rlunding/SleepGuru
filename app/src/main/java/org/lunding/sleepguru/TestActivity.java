@@ -25,7 +25,7 @@ public class TestActivity extends Activity {
                 Log.d(TAG, "New test started");
                 button.setVisibility(View.GONE);
 
-                MathFragment fragment = new MathFragment();
+                MathFragment fragment = MathFragment.newInstance(5);
                 getFragmentManager()
                         .beginTransaction()
                         .add(android.R.id.content, fragment,
