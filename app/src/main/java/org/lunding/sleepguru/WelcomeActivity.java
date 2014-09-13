@@ -65,6 +65,8 @@ public class WelcomeActivity extends Activity {
     private void benchmarkTest(){
         Intent intent = new Intent(this, TestActivity.class);
         intent.putExtra("BENCHMARK", true);
+        intent.putExtra("TEST-METHOD", MathFragment.class.getSimpleName());
+        intent.putExtra("AVERAGE", 0L);
         startActivity(intent);
     }
 }

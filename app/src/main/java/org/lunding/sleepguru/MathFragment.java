@@ -31,14 +31,16 @@ public class MathFragment extends Fragment {
     private long startTime;
     private long times[];
     private boolean benchmark;
+    private long average;
 
     private int answeredQuestions = 0;
 
-    public static MathFragment newInstance(int questions, boolean benchmark){
+    public static MathFragment newInstance(int questions, boolean benchmark, long average){
         MathFragment f = new MathFragment();
         Bundle args = new Bundle();
         args.putInt("questions", questions);
         args.putBoolean("benchmark", benchmark);
+        args.putLong("average", average);
         f.setArguments(args);
         return f;
     }
@@ -48,8 +50,9 @@ public class MathFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_math, container, false);
         r = new Random();
-        times = new long[getArguments().getInt("questions", 5)];
+        times = new long[getArguments().getInt("questions", TestActivity.DEFAULT_NUMBER_OF_QUESTIONS)];
         benchmark = getArguments().getBoolean("benchmark");
+        average = getArguments().getLong("average");
 
         question = (TextView) view.findViewById(R.id.math_question);
         answer1 = (Button) view.findViewById(R.id.answer1);
@@ -74,11 +77,21 @@ public class MathFragment extends Fragment {
                 times[answeredQuestions] = System.currentTimeMillis() - startTime;
                 answeredQuestions++;
                 if(answeredQuestions == times.length){
+                    if(benchmark){
+                        long avg = TestActivity.calculateAverage(times, average);
 
-                    Intent intent = new Intent(new Intent(v.getContext(), ResultActivity.class));
-                    intent.putExtra("TIMES", times);
-                    startActivity(intent);
-                    getActivity().finish();
+                        Intent intent = new Intent(v.getContext(), TestActivity.class);
+                        intent.putExtra("BENCHMARK", true);
+                        intent.putExtra("TEST-METHOD", BallFragment.class.getSimpleName());
+                        intent.putExtra("AVERAGE", avg);
+                        startActivity(intent);
+                        getActivity().finish();
+                    } else {
+                        Intent intent = new Intent(new Intent(v.getContext(), ResultActivity.class));
+                        intent.putExtra("TIMES", times);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
                 } else {
                     generateQuestion();
                 }

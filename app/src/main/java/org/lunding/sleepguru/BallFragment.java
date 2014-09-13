@@ -2,8 +2,10 @@ package org.lunding.sleepguru;
 
 import android.app.Fragment;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,15 +23,29 @@ import java.util.Random;
 
 public class BallFragment extends Fragment {
     private long startTime;
-    private long times[] = new long[5];
+    private long times[];
     private int hits = 0;
+    private boolean benchmark;
+    private long average;
+
+    public static BallFragment newInstance(int questions, boolean benchmark, long average){
+        BallFragment f = new BallFragment();
+        Bundle args = new Bundle();
+        args.putInt("questions", questions);
+        args.putBoolean("benchmark", benchmark);
+        args.putLong("average", average);
+        f.setArguments(args);
+        return f;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         View view = inflater.inflate(R.layout.fragment_ball, container, false);
         final ImageButton ball = (ImageButton) view.findViewById(R.id.moving_ball);
-
+        times = new long[getArguments().getInt("questions", 5)];
+        benchmark = getArguments().getBoolean("benchmark");
+        average = getArguments().getLong("average");
+        startTime = System.currentTimeMillis();
 
         ball.setOnClickListener(new OnClickListener() {
 
@@ -37,9 +53,19 @@ public class BallFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(hits==times.length){
-                    Intent intent = new Intent(new Intent(view.getContext(), ResultActivity.class));
-                    intent.putExtra("TIMES", times);
-                    startActivity(intent);
+                    if (benchmark) {
+                        long avg = TestActivity.calculateAverage(times, average);
+                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
+                        SharedPreferences.Editor editpref = prefs.edit();
+                        editpref.putString("score", String.valueOf(avg));
+                        editpref.commit();
+                        getActivity().finish();
+                    } else {
+                        Intent intent = new Intent(new Intent(view.getContext(), ResultActivity.class));
+                        intent.putExtra("TIMES", times);
+                        startActivity(intent);
+                        getActivity().finish();
+                    }
                 }
                 else{
 
@@ -58,8 +84,8 @@ public class BallFragment extends Fragment {
                     switch (view.getId()){
                         case (R.id.moving_ball):{
                             Random r = new Random();
-                            int x = r.nextInt(width - ball.getWidth());
-                            int y = r.nextInt(height - ball.getHeight());
+                            int x = r.nextInt(width) - ball.getWidth()/2;
+                            int y = r.nextInt(height) - ball.getHeight()/2;
 
                             ball.setX(x);
                             ball.setY(y);
@@ -68,7 +94,7 @@ public class BallFragment extends Fragment {
                     startTime = System.currentTimeMillis();
                 }
 
-                System.out.println("start time 2:" + startTime);
+                System.out.println("start time 2:" + (System.currentTimeMillis() - startTime));
             }
         });
         return view;
