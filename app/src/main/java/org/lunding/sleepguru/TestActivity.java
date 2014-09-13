@@ -80,4 +80,5 @@ public class TestActivity extends Activity {
         }
         return avg;
     }
+
 }

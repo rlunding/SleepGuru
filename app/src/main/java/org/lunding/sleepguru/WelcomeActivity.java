@@ -47,6 +47,7 @@ public class WelcomeActivity extends Activity {
                 if (seekBar.getProgress() >95) {
                     Log.d(TAG, "New test started");
                     normalTest();
+                    seekBar.setProgress(0);
                 }
                 else{
                     slide.setAlpha(0.6f);

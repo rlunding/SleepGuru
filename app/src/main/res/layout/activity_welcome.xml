@@ -12,7 +12,8 @@
     tools:context=".WelcomeActivity"
     android:id="@+id/welcome_activity"
     android:focusable="false"
-    android:focusableInTouchMode="false">
+    android:focusableInTouchMode="false"
+    >
 
     <TextView
         android:text="Welcome to\nSleepGuru"
