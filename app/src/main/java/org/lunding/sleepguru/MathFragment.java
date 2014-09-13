@@ -27,6 +27,8 @@ public class MathFragment extends Fragment {
     private Button answer3;
     private long startTime;
 
+    private int answeredQuestions = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_math, container, false);
@@ -50,8 +52,12 @@ public class MathFragment extends Fragment {
         return new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "Answer: " + id + " time: " + (System.currentTimeMillis() - startTime));
+                Log.d(TAG, "Answer: " + id + " time: " + (System.currentTimeMillis() - startTime) + " answered questions: " + answeredQuestions);
                 generateQuestion();
+                answeredQuestions++;
+                if(answeredQuestions == 5){
+                    getActivity().getFragmentManager().popBackStack();
+                }
             }
         };
     }
