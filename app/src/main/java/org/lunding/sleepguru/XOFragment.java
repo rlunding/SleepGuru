@@ -80,11 +80,10 @@ public class XOFragment extends Fragment {
 
                 if(hits==times.length){
                     if (benchmark) {
-                        long avg = TestActivity.calculateAverage(times);
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(v.getContext());
-                        SharedPreferences.Editor editpref = prefs.edit();
-                        editpref.putString("score", String.valueOf(avg));
-                        editpref.commit();
+                        Intent intent = new Intent(v.getContext(), TestActivity.class);
+                        intent.putExtra("BENCHMARK", true);
+                        intent.putExtra("TEST-METHOD", BallFragment.class.getSimpleName());
+                        startActivity(intent);
                         getActivity().finish();
                     } else {
                         Log.d(TAG, "Average time: " + TestActivity.calculateAverage(times));
@@ -130,12 +129,12 @@ public class XOFragment extends Fragment {
             Random r = new Random();
             int x = r.nextInt((int) (width*0.6f));// - ib.getWidth() / 2;
             int y = r.nextInt((int) (height*0.6f));// - ib.getHeight() / 2;
-
+            ib.setScaleX(0.5f);
+            ib.setScaleY(0.5f);
             ib.setX(x + width*0.1f);
             ib.setY(y + height*0.1f);
             ib.setBackgroundResource(R.drawable.redcircle);
-            ib.setScaleX(0.5f);
-            ib.setScaleY(0.5f);
+
             Log.d(TAG, "Button: " + " at: " + x + ", y:" + y);
         }
     }

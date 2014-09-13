@@ -17,7 +17,7 @@
         android:text="Click Me"
         android:id="@+id/moving_ball"
         android:clickable="true"
-        android:src="@drawable/red_circle"
+        android:src="@drawable/reddot"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="136dp" />

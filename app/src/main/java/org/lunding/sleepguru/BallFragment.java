@@ -43,6 +43,8 @@ public class BallFragment extends Fragment {
         times = new long[getArguments().getInt("questions", 5)];
         benchmark = getArguments().getBoolean("benchmark");
         startTime = System.currentTimeMillis();
+        ball.setScaleX(0.5f);
+        ball.setScaleY(0.5f);
 
         ball.setOnClickListener(new OnClickListener() {
 
@@ -81,11 +83,14 @@ public class BallFragment extends Fragment {
                     switch (view.getId()){
                         case (R.id.moving_ball):{
                             Random r = new Random();
-                            int x = r.nextInt(width) - ball.getWidth()/2;
-                            int y = r.nextInt(height) - ball.getHeight()/2;
+                            int x = r.nextInt(width - ball.getWidth()*2);
+                            int y = r.nextInt(height - ball.getHeight()*2);
+                            ball.setScaleX(0.5f);
+                            ball.setScaleY(0.5f);
 
                             ball.setX(x);
                             ball.setY(y);
+
                         }
                     }
                     startTime = System.currentTimeMillis();

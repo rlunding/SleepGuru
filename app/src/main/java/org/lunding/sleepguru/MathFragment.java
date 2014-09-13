@@ -77,7 +77,7 @@ public class MathFragment extends Fragment {
                     if(benchmark){
                         Intent intent = new Intent(v.getContext(), TestActivity.class);
                         intent.putExtra("BENCHMARK", true);
-                        intent.putExtra("TEST-METHOD", BallFragment.class.getSimpleName());
+                        intent.putExtra("TEST-METHOD", XOFragment.class.getSimpleName());
                         startActivity(intent);
                         getActivity().finish();
                     } else {
