@@ -6,7 +6,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Press me!"
+        android:text="I'm ready!"
         android:id="@+id/startTestButton"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
