@@ -39,79 +39,16 @@ public class OauthUtils {
 
         for (UpPlatformSdkConstants.UpPlatformAuthScope scope : scopeArrayList) {
             switch (scope) {
-                case BASIC_READ:
-                    scopeValues.append("basic_read ");
-                    break;
-                case EXTENDED_READ:
-                    scopeValues.append("extended_read ");
-                    break;
-                case LOCATION_READ:
-                    scopeValues.append("location_read ");
-                    break;
-                case FRIENDS_READ:
-                    scopeValues.append("friends_read ");
-                    break;
-                case MOOD_READ:
-                    scopeValues.append("mood_read ");
-                    break;
-                case MOOD_WRITE:
-                    scopeValues.append("mood_write ");
-                    break;
-                case MOVE_READ:
-                    scopeValues.append("move_read ");
-                    break;
-                case MOVE_WRITE:
-                    scopeValues.append("move_write ");
-                    break;
+
                 case SLEEP_READ:
                     scopeValues.append("sleep_read ");
                     break;
                 case SLEEP_WRITE:
                     scopeValues.append("sleep_write ");
                     break;
-                case MEAL_READ:
-                    scopeValues.append("meal_read ");
-                    break;
-                case MEAL_WRITE:
-                    scopeValues.append("meal_write ");
-                    break;
-                case WEIGHT_READ:
-                    scopeValues.append("weight_read ");
-                    break;
-                case WEIGHT_WRITE:
-                    scopeValues.append("weight_write ");
-                    break;
-                case CARDIAC_READ:
-                    scopeValues.append("cardiac_read ");
-                    break;
-                case CARDIAC_WRITE:
-                    scopeValues.append("cardiac_write ");
-                    break;
-                case GENERIC_EVENT_READ:
-                    scopeValues.append("generic_event_read ");
-                    break;
-                case GENERIC_EVENT_WRITE:
-                    scopeValues.append("generic_event_write ");
-                    break;
                 case ALL:
-                    scopeValues.append("basic_read ");
-                    scopeValues.append("extended_read ");
-                    scopeValues.append("location_read ");
-                    scopeValues.append("friends_read ");
-                    scopeValues.append("mood_read ");
-                    scopeValues.append("mood_write ");
-                    scopeValues.append("move_read ");
-                    scopeValues.append("move_write ");
                     scopeValues.append("sleep_read ");
                     scopeValues.append("sleep_write ");
-                    scopeValues.append("meal_read ");
-                    scopeValues.append("meal_write ");
-                    scopeValues.append("weight_read ");
-                    scopeValues.append("weight_write ");
-                    scopeValues.append("cardiac_read ");
-                    scopeValues.append("cardiac_write ");
-                    scopeValues.append("generic_event_read ");
-                    scopeValues.append("generic_event_write ");
                     break;
                 default:
                     scopeValues = null;

@@ -10,7 +10,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/result_text"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:textColor="#C0C0C0" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -18,12 +19,14 @@
         android:inputType="time"
         android:ems="10"
         android:id="@+id/wake_up_time"
-        android:textColor = "#C0C0C0"
+        android:textColor = "#000000"
         android:background="#C0C0C0"
         android:layout_above="@+id/result_text"
         android:textSize="26sp"
         android:layout_alignEnd="@+id/help_text"
-        android:layout_alignStart="@+id/help_text" />
+        android:layout_alignStart="@+id/help_text"
+        android:textAlignment="center"
+        android:gravity="center" />
 
     <TextView
         android:layout_width="wrap_content"
