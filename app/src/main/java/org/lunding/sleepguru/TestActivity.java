@@ -40,6 +40,8 @@ public class TestActivity extends Activity {
                         fragment = MathFragment.newInstance(DEFAULT_NUMBER_OF_QUESTIONS, true);
                     } else if(method.equals(BallFragment.class.getSimpleName())){
                         fragment = BallFragment.newInstance(DEFAULT_NUMBER_OF_QUESTIONS, true);
+                    } else if(method.equals(XOFragment.class.getSimpleName())){
+                        fragment = XOFragment.newInstance(DEFAULT_NUMBER_OF_QUESTIONS, true);
                     }
                 } else {
                     int rand = new Random().nextInt(3);
