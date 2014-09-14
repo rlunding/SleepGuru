@@ -53,6 +53,7 @@ public class BallFragment extends Fragment {
             public void onClick(View view) {
                 if(hits==times.length){
                     if (benchmark) {
+                        TestActivity.insertIntoDB(getActivity().getBaseContext(), times);
                         long avg = TestActivity.calculateAverage(times);
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
                         SharedPreferences.Editor editpref = prefs.edit();

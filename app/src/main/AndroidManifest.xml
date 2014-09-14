@@ -30,6 +30,11 @@
             android:label="@string/result_activity">
         </activity>
 
+        <provider
+            android:name="org.lunding.sleepguru.StatusProvider"
+            android:authorities="org.lunding.sleepguru.StatusProvider"
+            android:exported="false" />
+
     </application>
 
 </manifest>

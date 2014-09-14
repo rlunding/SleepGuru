@@ -1,7 +1,9 @@
 package org.lunding.sleepguru;
 
 import android.app.Fragment;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Random;
 import java.util.Collection;
@@ -74,6 +77,8 @@ public class MathFragment extends Fragment {
                 times[answeredQuestions] = System.currentTimeMillis() - startTime;
                 answeredQuestions++;
                 if(answeredQuestions == times.length){
+                    TestActivity.insertIntoDB(getActivity().getBaseContext(), times);
+
                     if(benchmark){
                         Intent intent = new Intent(v.getContext(), TestActivity.class);
                         intent.putExtra("BENCHMARK", true);

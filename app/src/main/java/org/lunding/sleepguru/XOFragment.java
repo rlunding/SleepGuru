@@ -79,6 +79,7 @@ public class XOFragment extends Fragment {
                 System.out.println("hits: " + hits);
 
                 if(hits==times.length){
+                    TestActivity.insertIntoDB(getActivity().getBaseContext(), times);
                     if (benchmark) {
                         Intent intent = new Intent(v.getContext(), TestActivity.class);
                         intent.putExtra("BENCHMARK", true);

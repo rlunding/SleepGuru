@@ -1,7 +1,9 @@
 package org.lunding.sleepguru;
 
 import android.app.Activity;
+import android.content.ContentUris;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -77,6 +79,9 @@ public class WelcomeActivity extends Activity {
             case R.id.benchmark_button:
                 benchmarkTest();
                 return true;
+            case R.id.highscore:
+                printHighscore();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -96,5 +101,21 @@ public class WelcomeActivity extends Activity {
         intent.putExtra("TEST-METHOD", MathFragment.class.getSimpleName());
         intent.putExtra("AVERAGE", 0L);
         startActivity(intent);
+    }
+
+    private static final String[] ENTRY = { StatusContract.Column.USER,
+            StatusContract.Column.SCORE, StatusContract.Column.CREATED_AT,
+            StatusContract.Column.CREATED_AT };
+
+    private void printHighscore(){
+        Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, null, null, StatusContract.DEFAULT_SORT);
+        while(cursor.moveToNext()){
+            Log.d(TAG,
+                    cursor.getString(cursor.getColumnIndex(StatusContract.Column.USER))
+                    + " " + cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE))
+                    + " " + cursor.getInt(cursor.getColumnIndex(StatusContract.Column.CREATED_AT))
+            );
+        }
+
     }
 }

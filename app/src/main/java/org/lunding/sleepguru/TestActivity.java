@@ -2,7 +2,12 @@ package org.lunding.sleepguru;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -81,6 +86,24 @@ public class TestActivity extends Activity {
         }
         avg /= times.length;
         return avg;
+    }
+
+    public static void insertIntoDB(Context context, long[] times){
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        java.util.Date utilDate = cal.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        ContentValues values = new ContentValues();
+        //values.put(StatusContract.Column.ID, null);
+        values.put(StatusContract.Column.USER, prefs.getString("username", "user"));
+        values.put(StatusContract.Column.SCORE, TestActivity.calculateAverage(times));
+        values.put(StatusContract.Column.CREATED_AT, sqlDate.toString());
+
+        Uri uri = context.getContentResolver().insert(StatusContract.CONTENT_URI, values);
+        if (uri != null) {
+            Log.d(TAG, "insert into db: " + uri);
+        }
     }
 
 }

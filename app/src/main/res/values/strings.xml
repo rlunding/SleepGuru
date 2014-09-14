@@ -8,6 +8,7 @@
     <!-- Strings for settings fragment-->
     <string name="settings_activity">Settings</string>
     <string name="benchmark_label">Benchmark</string>
+    <string name="highscore_label">Highscore</string>
     <string name="username_summary">Enter your username here</string>
     <string name="username">Username</string>
     <string name="password_summary">Enter your password here</string>
