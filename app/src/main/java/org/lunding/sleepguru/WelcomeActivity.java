@@ -35,7 +35,7 @@ public class WelcomeActivity extends Activity {
                 if (seekBar.getProgress() > 95) {
 
                 } else {
-                    seekBar.setThumb(getResources().getDrawable(R.drawable.ic_launcher));
+                    seekBar.setThumb(getResources().getDrawable(R.drawable.snorlax));
                 }
             }
 
