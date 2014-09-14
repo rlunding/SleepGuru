@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="org.lunding.sleepguru" >
 
-    <uses-sdk android:minSdkVersion="14"/>
+    <uses-sdk android:minSdkVersion="17"/>
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR"/>
 
@@ -23,15 +23,23 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:label="@string/settings_activity">
+            android:label="@string/settings_activity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".TestActivity"
-            android:label="@string/test_activity">
+            android:label="@string/test_activity"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ResultActivity"
-            android:label="@string/result_activity">
+            android:label="@string/result_activity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name=".StatisticActivity"
+            android:label="@string/statistic_activity"
+            android:screenOrientation="portrait">
         </activity>
 
         <provider

@@ -83,11 +83,9 @@ public class ResultActivity extends Activity {
                     Log.d(TAG, "Current time: " + dateToString(currentTime));
                     Log.d(TAG, "Wakeup time: " + dateToString(wakeupTime));
 
-                    long difference = wakeupTime.toMillis(true) - (minimumMinutesToSleep) - currentTime.toMillis(true);
-                    difference = difference / (60 * 1000);
+                    long difference = currentTime.toMillis(true) - wakeupTime.toMillis(true) - (minimumMinutesToSleep);
+                    difference = difference / (60 * 60 * 1000);
                     Log.d(TAG, "Difference: " + difference + " minutes... or hours: " + (difference/60));
-
-                    int baselineScore = Integer.parseInt(prefs.getString("score", "1500"));
 
                     long [] scores = getRandomScores();
                     long avg = TestActivity.calculateAverage(scores);
@@ -107,47 +105,46 @@ public class ResultActivity extends Activity {
                         switch (score){
                             case 1: //Very good - study some more
                                 setResult("You're quite alert! Feel free to study or work some more.");
+                                break;
                             case 2: //good - study some more, but go to bed soon
                                 setResult("You're doing well. Work some more if you want, but plan on going to bed soon.");
+                                break;
                             case 3: //Get ready for bed
                                 setResult("You should get ready for bed!");
+                                break;
                             case 4: //time to jump into bed
                                 setResult("It's time to jump into bed.");
-                            break;
+                                break;
                         }
                     } else if(difference > -90 && difference < 45){
                         switch (score){
                             case 1: //Complete what you are doing and go to bed
                                 setResult("Wrap up your task and plan on going to bed!");
+                                break;
                             case 2: //start getting ready for bed
                                 setResult("Start getting ready for bed.");
+                                break;
                             case 3: //Go to bed
                                 setResult("Go to bed! Sweet dreams.");
+                                break;
                             case 4: //You should already be sleeping
                                 setResult("Oh no! You should already be sleeping.");
-                            break;
+                                break;
                         }
                     } else {
                         switch (score){
                             case 1:
                             case 2: //Go to bed (something about alcohol)
                                 setResult("GO TO BED! Your state of mind is as if you are under the influence of x drinks.");
+                                break;
                             case 3:
                             case 4: //You are way to late (something about alcohol)
                                 setResult("You are way too late. Your state of mind is as if you are under the influence of x drinks.");
-                            break;
+                                break;
                         }
                     }
 
-                    Log.d(TAG, "Score: " + score);
-
-                    if(minimumMinutesToSleep > difference){
-                        setResult("Go to sleep");
-                    } else if (avg > baselineScore * 1.25){
-                        setResult("You are tired, go to sleep");
-                    } else {
-                        setResult("Work some more");
-                    }
+                    Log.d(TAG, "Score: " + score + ", based on: " + actualScore);
                     Log.d(TAG, "Result provided, avg time was: " + avg);
                 }
             }
@@ -181,7 +178,7 @@ public class ResultActivity extends Activity {
         Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, null, null, StatusContract.SORT_DESC_MAX3);
         long[] scores = new long[3];
         int i = 0;
-        while(cursor.moveToNext() || i != scores.length-1){
+        while(cursor.moveToNext() || i < scores.length-1){
             scores[i] = cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE));
             i++;
         }
@@ -194,9 +191,9 @@ public class ResultActivity extends Activity {
         currentTime.set(currentTime.toMillis(true) - (1000 * 60 * 60));
         String[] args = {dateToString(currentTime)};
         Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, StatusContract.Column.CREATED_AT+"<?", args, StatusContract.SORT_DESC_MAX20);
-        long[] scores = new long[3];
+        long[] scores = new long[20];
         int i = 0;
-        while(cursor.moveToNext() || i != scores.length-1){
+        while(cursor.moveToNext() || i < scores.length-1){
             scores[i] = cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE));
             i++;
         }

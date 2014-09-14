@@ -86,7 +86,7 @@ public class MathFragment extends Fragment {
                         startActivity(intent);
                         getActivity().finish();
                     } else {
-                        Intent intent = new Intent(new Intent(v.getContext(), ResultActivity.class));
+                        Intent intent = new Intent(v.getContext(), ResultActivity.class);
                         intent.putExtra("TIMES", times);
                         startActivity(intent);
                         getActivity().finish();

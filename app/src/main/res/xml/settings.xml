@@ -8,12 +8,6 @@
         android:summary="@string/username_summary"/>
 
     <EditTextPreference
-        android:key="password"
-        android:title="@string/password"
-        android:summary="@string/password_summary"
-        android:inputType="textPassword"/>
-
-    <EditTextPreference
         android:key="sleep_time"
         android:title="@string/sleep_time"
         android:summary="@string/sleep_time_summary"

@@ -24,4 +24,14 @@
     <!-- Strings for result activity-->
     <string name="result_activity">Result</string>
 
+    <!-- Strings for statistic -->
+    <string name="statistic_activity">Statistic</string>
+
+
+    <string-array name="menu">
+        <item>Clock</item>
+        <item>Graph</item>
+        <item>Return</item>
+    </string-array>
+
 </resources>
