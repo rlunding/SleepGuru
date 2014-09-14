@@ -26,8 +26,7 @@
         android:gravity="center"
         android:layout_alignEnd="@+id/help_text"
         android:layout_alignStart="@+id/help_text"
-        android:textAlignment="center"
-        android:gravity="center" />
+        android:textAlignment="center" />
 
     <TextView
         android:layout_width="wrap_content"
