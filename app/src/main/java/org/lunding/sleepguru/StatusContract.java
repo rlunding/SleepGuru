@@ -9,7 +9,7 @@ import android.provider.BaseColumns;
 public class StatusContract {
 
     public static final String DB_NAME = "sleep.db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 5;
     public static final String TABLE = "tests";
 
     public static final String AUTHORITY = "org.lunding.sleepguru.StatusProvider";

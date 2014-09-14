@@ -22,7 +22,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String sql = String.format(
-                "create table %s (%s integer primary key autoincrement, %s text, %s int, %s int)",
+                "create table %s (%s integer primary key autoincrement, %s varchar(64), %s integer, %s datetime)",
                     StatusContract.TABLE,
                     StatusContract.Column.ID,
                     StatusContract.Column.USER,

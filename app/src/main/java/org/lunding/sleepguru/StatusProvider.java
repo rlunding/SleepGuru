@@ -72,6 +72,8 @@ public class StatusProvider extends ContentProvider {
 
             // Notify that data for this uri has changed
             getContext().getContentResolver().notifyChange(uri, null);
+        } else {
+            Log.d(TAG, "ERROR when trying to insert into DB");
         }
 
         return ret;
