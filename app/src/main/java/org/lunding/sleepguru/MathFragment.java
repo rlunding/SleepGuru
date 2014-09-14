@@ -74,7 +74,7 @@ public class MathFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Answer: " + id + " time: " + (System.currentTimeMillis() - startTime) + " answered questions: " + answeredQuestions);
-                times[answeredQuestions] = System.currentTimeMillis() - startTime;
+                times[answeredQuestions] = (System.currentTimeMillis() - startTime)/2;
                 answeredQuestions++;
                 if(answeredQuestions == times.length){
                     TestActivity.insertIntoDB(getActivity().getBaseContext(), times);

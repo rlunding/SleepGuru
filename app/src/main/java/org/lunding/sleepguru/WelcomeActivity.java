@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -113,9 +114,8 @@ public class WelcomeActivity extends Activity {
             Log.d(TAG,
                     cursor.getString(cursor.getColumnIndex(StatusContract.Column.USER))
                     + " " + cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE))
-                    + " " + cursor.getInt(cursor.getColumnIndex(StatusContract.Column.CREATED_AT))
+                    + " " + cursor.getString(cursor.getColumnIndex(StatusContract.Column.CREATED_AT))
             );
         }
-
     }
 }

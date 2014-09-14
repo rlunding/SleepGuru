@@ -69,6 +69,9 @@ public class ResultActivity extends Activity {
                 if(inputTimeText.getText().length() < 4){
                     Toast.makeText(ResultActivity.this, "Write a time", Toast.LENGTH_SHORT).show();
                 } else {
+                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ResultActivity.this);
+                    int minimumMinutesToSleep = Integer.parseInt(prefs.getString("sleep_time", "8")) * 60;
+
                     Time currentTime = new Time();
                     currentTime.setToNow();
                     Time wakeupTime = new Time();
@@ -79,20 +82,48 @@ public class ResultActivity extends Activity {
                     Log.d(TAG, "Current time: " + dateToString(currentTime));
                     Log.d(TAG, "Wakeup time: " + dateToString(wakeupTime));
 
-                    long difference = wakeupTime.toMillis(true) - currentTime.toMillis(true);
+                    long difference = wakeupTime.toMillis(true) - (minimumMinutesToSleep) - currentTime.toMillis(true);
                     difference = difference / (60 * 1000);
                     Log.d(TAG, "Difference: " + difference + " minutes... or hours: " + (difference/60));
 
-                    long times[] = getIntent().getLongArrayExtra("TIMES");
-                    long avg = 0;
-                    for(int i = 0; i < times.length; i++){
-                        avg += times[i];
-                    }
-                    avg /= times.length;
-
-                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ResultActivity.this);
-                    int minimumMinutesToSleep = Integer.parseInt(prefs.getString("sleep_time", "8")) * 60;
                     int baselineScore = Integer.parseInt(prefs.getString("score", "1500"));
+
+                    long [] scores = new long[6]; //get from database (20 random)
+                    long avg = TestActivity.calculateAverage(scores);
+                    int actualScore = 1000; //get last three entries from db.
+                    int score = 0;
+                    if(avg * 1.2f < actualScore){
+                        score = 4;
+                    } else if(avg < actualScore){
+                        score = 3;
+                    } else if (avg * 0.8f < actualScore){
+                        score = 2;
+                    } else {
+                        score = 1;
+                    }
+
+                    if(difference < -90){
+                        switch (score){
+                            case 1: //Very good - study some more
+                            case 2: //good - study some more, but go to bed soon
+                            case 3: //Get ready for bed
+                            case 4: //time to jump into bed
+                        }
+                    } else if(difference > -90 && difference < 45){
+                        switch (score){
+                            case 1: //Complete what you are doing and go to bed
+                            case 2: //start getting ready for bed
+                            case 3: //Go to bed
+                            case 4: //You should already be sleeping
+                        }
+                    } else {
+                        switch (score){
+                            case 1:
+                            case 2: //Go to bed (something about alcohol)
+                            case 3:
+                            case 4: //You are way to late (something about alcohol)
+                        }
+                    }
 
                     if(minimumMinutesToSleep > difference){
                         setResult("Go to sleep");
@@ -129,4 +160,5 @@ public class ResultActivity extends Activity {
         sb.append(t.second);
         return sb.toString();
     }
+
 }
