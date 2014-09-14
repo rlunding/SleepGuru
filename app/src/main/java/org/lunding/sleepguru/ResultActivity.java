@@ -53,7 +53,7 @@ public class ResultActivity extends Activity {
                 mTimePicker = new TimePickerDialog(ResultActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        inputTimeText.setText("" + selectedHour + ":" + selectedMinute);
+                        inputTimeText.setText("" + addZero(selectedHour) + selectedHour + ":" + addZero(selectedMinute) + selectedMinute);
                         ResultActivity.this.selectedHour = selectedHour;
                         ResultActivity.this.selectedMinute = selectedMinute;
                     }
@@ -135,11 +135,11 @@ public class ResultActivity extends Activity {
                         switch (score){
                             case 1:
                             case 2: //Go to bed (something about alcohol)
-                                setResult("GO TO BED! Your state of mind is as if you are under the influence of x drinks.");
+                                setResult("GO TO BED! Your state of mind is as if you are under the influence of 4 drinks.");
                                 break;
                             case 3:
                             case 4: //You are way to late (something about alcohol)
-                                setResult("You are way too late. Your state of mind is as if you are under the influence of x drinks.");
+                                setResult("You are way too late. Your state of mind is as if you are under the influence of 4 drinks.");
                                 break;
                         }
                     }
@@ -198,5 +198,9 @@ public class ResultActivity extends Activity {
             i++;
         }
         return scores;
+    }
+
+    private String addZero(int i){
+        return i > 9 ? "" : "0";
     }
 }
