@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.format.Time;
@@ -88,9 +89,9 @@ public class ResultActivity extends Activity {
 
                     int baselineScore = Integer.parseInt(prefs.getString("score", "1500"));
 
-                    long [] scores = new long[6]; //get from database (20 random)
+                    long [] scores = getRandomScores();
                     long avg = TestActivity.calculateAverage(scores);
-                    int actualScore = 1000; //get last three entries from db.
+                    int actualScore = getCurrentScore();
                     int score = 0;
                     if(avg * 1.2f < actualScore){
                         score = 4;
@@ -124,6 +125,8 @@ public class ResultActivity extends Activity {
                             case 4: //You are way to late (something about alcohol)
                         }
                     }
+
+                    Log.d(TAG, "Score: " + score);
 
                     if(minimumMinutesToSleep > difference){
                         setResult("Go to sleep");
@@ -161,4 +164,29 @@ public class ResultActivity extends Activity {
         return sb.toString();
     }
 
+    private int getCurrentScore(){
+        Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, null, null, StatusContract.SORT_DESC_MAX3);
+        long[] scores = new long[3];
+        int i = 0;
+        while(cursor.moveToNext() || i != scores.length-1){
+            scores[i] = cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE));
+            i++;
+        }
+        return (int) TestActivity.calculateAverage(scores);
+    }
+
+    private long[] getRandomScores(){
+        Time currentTime = new Time();
+        currentTime.setToNow();
+        currentTime.set(currentTime.toMillis(true) - (1000 * 60 * 60));
+        String[] args = {dateToString(currentTime)};
+        Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, StatusContract.Column.CREATED_AT+"<?", args, StatusContract.SORT_DESC_MAX20);
+        long[] scores = new long[3];
+        int i = 0;
+        while(cursor.moveToNext() || i != scores.length-1){
+            scores[i] = cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE));
+            i++;
+        }
+        return scores;
+    }
 }

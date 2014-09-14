@@ -22,6 +22,8 @@ public class StatusContract {
             "vnd.android.cursor.item/vnd.org.lunding.sleepguru.provider.status";
 
     public static final String DEFAULT_SORT = Column.CREATED_AT + " DESC";
+    public static final String SORT_DESC_MAX3 = Column.CREATED_AT + " DESC LIMIT 3";
+    public static final String SORT_DESC_MAX20 = Column.CREATED_AT + " DESC LIMIT 20";
 
     public class Column {
         public static final String ID = BaseColumns._ID;
