@@ -79,6 +79,9 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 20 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+<<<<<<< HEAD
+    <orderEntry type="module" module-name="UpPlatformSdk" exported="" />
+=======
     <orderEntry type="library" exported="" name="jetty-util-6.1.26" level="project" />
     <orderEntry type="library" exported="" name="google-oauth-client-1.17.0-rc" level="project" />
     <orderEntry type="library" exported="" name="google-oauth-client-appengine-1.17.0-rc" level="project" />
@@ -135,6 +138,7 @@
     <orderEntry type="library" exported="" name="google-http-client-xml-1.17.0-rc" level="project" />
     <orderEntry type="library" exported="" name="google-api-client-1.17.0-rc" level="project" />
     <orderEntry type="library" exported="" name="google-http-client-jdo-1.17.0-rc" level="project" />
+>>>>>>> FETCH_HEAD
   </component>
 </module>
 
