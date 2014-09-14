@@ -52,8 +52,8 @@ public class BallFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(hits==times.length){
+                    TestActivity.insertIntoDB(getActivity().getBaseContext(), times);
                     if (benchmark) {
-                        TestActivity.insertIntoDB(getActivity().getBaseContext(), times);
                         long avg = TestActivity.calculateAverage(times);
                         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(view.getContext());
                         SharedPreferences.Editor editpref = prefs.edit();
@@ -61,7 +61,7 @@ public class BallFragment extends Fragment {
                         editpref.commit();
                         getActivity().finish();
                     } else {
-                        Intent intent = new Intent(new Intent(view.getContext(), ResultActivity.class));
+                        Intent intent = new Intent(view.getContext(), ResultActivity.class);
                         intent.putExtra("TIMES", times);
                         startActivity(intent);
                         getActivity().finish();

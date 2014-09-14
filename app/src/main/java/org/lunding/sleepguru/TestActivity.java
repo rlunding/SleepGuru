@@ -12,7 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import java.util.ArrayList;
+
+import java.text.DateFormat;
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -89,16 +94,20 @@ public class TestActivity extends Activity {
     }
 
     public static void insertIntoDB(Context context, long[] times){
-        java.util.Calendar cal = java.util.Calendar.getInstance();
-        java.util.Date utilDate = cal.getTime();
-        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+        String date = df.format(new Date(System.currentTimeMillis()));
+        long score = TestActivity.calculateAverage(times);
+
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+
+        Log.d(TAG, "New row... user:" + prefs.getString("username", "user") + " , score: " + score + " time: " + date);
 
         ContentValues values = new ContentValues();
         //values.put(StatusContract.Column.ID, null);
         values.put(StatusContract.Column.USER, prefs.getString("username", "user"));
-        values.put(StatusContract.Column.SCORE, TestActivity.calculateAverage(times));
-        values.put(StatusContract.Column.CREATED_AT, sqlDate.toString());
+        values.put(StatusContract.Column.SCORE, score);
+        values.put(StatusContract.Column.CREATED_AT, date);
+
 
         Uri uri = context.getContentResolver().insert(StatusContract.CONTENT_URI, values);
         if (uri != null) {

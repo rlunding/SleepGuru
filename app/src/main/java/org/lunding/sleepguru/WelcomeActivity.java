@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -108,14 +109,14 @@ public class WelcomeActivity extends Activity {
             StatusContract.Column.CREATED_AT };
 
     private void printHighscore(){
-        Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, null, null, StatusContract.DEFAULT_SORT);
+        /*Cursor cursor = this.getContentResolver().query(StatusContract.CONTENT_URI, null, null, null, StatusContract.DEFAULT_SORT);
         while(cursor.moveToNext()){
             Log.d(TAG,
                     cursor.getString(cursor.getColumnIndex(StatusContract.Column.USER))
                     + " " + cursor.getInt(cursor.getColumnIndex(StatusContract.Column.SCORE))
-                    + " " + cursor.getInt(cursor.getColumnIndex(StatusContract.Column.CREATED_AT))
+                    + " " + cursor.getString(cursor.getColumnIndex(StatusContract.Column.CREATED_AT))
             );
-        }
-
+        }*/
+        startActivity(new Intent(this, StatisticActivity.class));
     }
 }
