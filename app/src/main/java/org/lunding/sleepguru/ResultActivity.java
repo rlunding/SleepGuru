@@ -106,23 +106,36 @@ public class ResultActivity extends Activity {
                     if(difference < -90){
                         switch (score){
                             case 1: //Very good - study some more
+                                setResult("You're quite alert! Feel free to study or work some more.");
                             case 2: //good - study some more, but go to bed soon
+                                setResult("You're doing well. Work some more if you want, but plan on going to bed soon.");
                             case 3: //Get ready for bed
+                                setResult("You should get ready for bed!");
                             case 4: //time to jump into bed
+                                setResult("It's time to jump into bed.");
+                            break;
                         }
                     } else if(difference > -90 && difference < 45){
                         switch (score){
                             case 1: //Complete what you are doing and go to bed
+                                setResult("Wrap up your task and plan on going to bed!");
                             case 2: //start getting ready for bed
+                                setResult("Start getting ready for bed.");
                             case 3: //Go to bed
+                                setResult("Go to bed! Sweet dreams.");
                             case 4: //You should already be sleeping
+                                setResult("Oh no! You should already be sleeping.");
+                            break;
                         }
                     } else {
                         switch (score){
                             case 1:
                             case 2: //Go to bed (something about alcohol)
+                                setResult("GO TO BED! Your state of mind is as if you are under the influence of x drinks.");
                             case 3:
                             case 4: //You are way to late (something about alcohol)
+                                setResult("You are way too late. Your state of mind is as if you are under the influence of x drinks.");
+                            break;
                         }
                     }
 
